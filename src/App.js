@@ -14,7 +14,7 @@ class App extends Component {
                      item={user}
                      cls={clsX}
                      key={user.id}/>
-                     )
+                     )іasdasdasdsa
                 })
             }
             </div>
