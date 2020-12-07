@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import User from "./User";
+import Post from "./Post";
 
 
 
 
-class AllUsers extends Component {
+class AllPosts extends Component {
 
     state = {users: [], choseOne: null};
 
@@ -24,7 +24,7 @@ class AllUsers extends Component {
         return (
             <div>
                 {
-                    users.map(value => (<User item={value} key={value.id} choseUser={this.choseUsers}/>))
+                    users.map(value => (<Post item={value} key={value.id} choseUser={this.choseUsers}/>))
                 }
                 {choseOne && <h2>{choseOne.id}-{choseOne.title}</h2>}
             </div>
@@ -33,4 +33,4 @@ class AllUsers extends Component {
     }
 
 }
-export default AllUsers;
+export default AllPosts;
