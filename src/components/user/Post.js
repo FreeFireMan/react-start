@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-class User extends Component {
+class Post extends Component {
     render() {
         let {item,choseUser} = this.props;
         return (
@@ -12,4 +12,4 @@ class User extends Component {
     }
 }
 
-export default User;
+export default Post;
