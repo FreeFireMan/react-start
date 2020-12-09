@@ -2,11 +2,11 @@ import React, {Component} from 'react';
 
 class Post extends Component {
     render() {
-        let {item,choseUser} = this.props;
+    let {item,chosenPosts} = this.props
         return (
             <div>
                 {item.id}-{item.title}
-                <button onClick={() => choseUser(item.id) }>chose</button>
+                <button onClick={()=> chosenPosts(item.id)}>chose</button>
             </div>
         );
     }
