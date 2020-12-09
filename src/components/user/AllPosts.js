@@ -1,30 +1,25 @@
 import React, {Component} from 'react';
 import Post from "./Post";
-
+import {PostService} from "../../service/PostService";
 
 
 
 class AllPosts extends Component {
 
-    state = {users: [], choseOne: null};
+    postService = new PostService()
 
-    choseUsers = (id) => this.setState({choseOne: this.state.users.find(value => value.id === id)})
+    state = {posts: [], choseOne:null}
 
-    componentDidMount() {
-        fetch('https://jsonplaceholder.typicode.com/posts')
-            .then(value => value.json())
-            .then(value => {
-                this.setState({users:value})
-            })
-    }
+    chosenPosts = (id) => {this.postService.getPostById(id).then(value => this.setState({choseOne:value}))}
 
+    componentDidMount() {this.postService.getAllPost().then(value => this.setState({posts:value}))}
 
     render() {
-        let {users,choseOne} = this.state;
+        let {posts, choseOne} = this.state
         return (
             <div>
                 {
-                    users.map(value => (<Post item={value} key={value.id} choseUser={this.choseUsers}/>))
+                    posts.map(value => <Post item={value} key={value.id} chosenPosts={this.chosenPosts}/>)
                 }
                 {choseOne && <h2>{choseOne.id}-{choseOne.title}</h2>}
             </div>
