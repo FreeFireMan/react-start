@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Post from "./Post";
-import {PostService} from "../../service/PostService";
+import PostService from "../../service/PostService";
 
 
 
@@ -8,20 +8,20 @@ class AllPosts extends Component {
 
     postService = new PostService()
 
-    state = {posts: [], choseOne:null}
+    state = {posts: []}
 
-    chosenPosts = (id) => {this.postService.getPostById(id).then(value => this.setState({choseOne:value}))}
 
-    componentDidMount() {this.postService.getAllPost().then(value => this.setState({posts:value}))}
+   async componentDidMount()  {await this.postService.getAllPost().then(value => this.setState({posts:value}))}
+
 
     render() {
-        let {posts, choseOne} = this.state
+        let {posts} = this.state
         return (
+
             <div>
                 {
-                    posts.map(value => <Post item={value} key={value.id} chosenPosts={this.chosenPosts}/>)
+                    posts.map(value => <Post item={value} key={value.id} />)
                 }
-                {choseOne && <h2>{choseOne.id}-{choseOne.title}</h2>}
             </div>
         );
 

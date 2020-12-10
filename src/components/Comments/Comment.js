@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 
-class Post extends Component {
+class Comment extends Component {
     render() {
-    let {item} = this.props
+        let {item} = this.props
         return (
             <div>
-                {item.id}-{item.title}
+                {item.id}-{item.name}
             </div>
         );
     }
 }
 
-export default Post;
+export default Comment;

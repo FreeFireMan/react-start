@@ -1,13 +1,9 @@
-export class PostService {
+export default class PostService {
 
     url = 'https://jsonplaceholder.typicode.com/posts'
 
-    getAllPost(){
-        return  fetch(this.url)
-            .then(value => value.json())
-            .then(value => {return value})
+    async getAllPost(){
+        return await fetch(this.url).then(value => value.json())
     }
-    getPostById(id){
-        return fetch(`${this.url}/${id}`).then(value => value.json()).then(value => value)
-    }
+
 }
