@@ -5,5 +5,7 @@ export default class PostService {
     async getAllPost(){
         return await fetch(this.url).then(value => value.json())
     }
-
+    post(id){
+        return fetch(this.url + '/' + id).then(value => value.json())
+    }
 }
