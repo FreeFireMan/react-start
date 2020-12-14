@@ -1,31 +1,28 @@
 import React, {Component} from 'react';
 import AllPosts from "./components/user/AllPosts";
 import AllComments from "./components/Comments/AllComments";
-import {
-	BrowserRouter as Router,
-	Switch,
-	Route,
-	Link
-} from 'react-router-dom';
+import {Switch, Route, NavLink} from 'react-router-dom';
+import './App.css'
 
 class App extends Component {
     render() {
         return (
-            <Router>
-                <div>
-                    <Link to={'/posts'}>posts</Link>
-                    <br/>
-                    <Link to={'/comments'}>comments</Link>
-                </div>
+            <div>
+                <ul>
+                    <li>
+                        <NavLink to={'/posts'}>posts</NavLink>
+                    </li>
+                    <li>
+                        <NavLink to={'/comments'}>comments</NavLink>
+                    </li>
+                </ul>
                 <div>
                     <Switch>
-                        <Route path={'/posts'} render={(props)=>{
-                            return <AllPosts/>;}}/>
-                        <Route path={'/comments'} render={(props)=>{
-                            return <AllComments/>;}}/>
+                        <Route path={'/posts'} component={AllPosts}/>
+                        <Route path={'/comments'} component={AllComments}/>
                     </Switch>
                 </div>
-            </Router>
+            </div>
 
         );
     }
