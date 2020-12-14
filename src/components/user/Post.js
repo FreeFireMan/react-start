@@ -1,15 +1,12 @@
 import React, {Component} from 'react';
-import {Link, withRouter} from 'react-router-dom';
+import {NavLink, withRouter} from 'react-router-dom';
 
-class Post extends Component {
-    render() {
-    let {item, match: {url}} = this.props
-        return (
+const Post=({item, match: {url}})=> {
+    return (
             <div>
-                {item.id}-{item.title}-<Link to={url + '/' + item.id}>info</Link>
+                {item.id}-{item.title}-<NavLink to={url + '/' + item.id}>info</NavLink>
             </div>
         );
-    }
 }
 
 export default withRouter(Post);

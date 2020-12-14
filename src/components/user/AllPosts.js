@@ -1,43 +1,39 @@
 import React, {Component} from 'react';
 import Post from "./Post";
 import PostService from "../../service/PostService";
-import {Route, Switch, withRouter} from 'react-router-dom';
+import {Route, withRouter} from 'react-router-dom';
 import FullPosts from "./FullPosts";
-
-
 
 
 class AllPosts extends Component {
 
     postService = new PostService()
-
     state = {posts: []}
 
-
-   async componentDidMount()  {await this.postService.getAllPost().then(value => this.setState({posts:value}))}
-
+    componentDidMount() {
+        this.postService
+            .getAllPost()
+            .then(posts => this.setState({posts}))
+    }
 
     render() {
+
         const {posts} = this.state;
         const {match: {url}} = this.props;
-        return (
 
+        return (
             <div>
                 {
-                    posts.map(value => <Post item={value} key={value.id} />)
+                    posts.map(value => <Post item={value} key={value.id}/>)
                 }
                 <hr/>
-                <Switch>
-                    <Route path={url + '/:id'} render={(props)=>{
-                        const {match: {params: {id}}} = props;
-                        return <FullPosts postId={id} key={id}/>
-                    }}/>
-                </Switch>
+                <Route path={url + '/:id'}
+                       render={({match: {params: {id}}}) =>
+                           <FullPosts postId={id} key={id}/> }/>
                 <hr/>
             </div>
         );
-
     }
-
 }
+
 export default withRouter(AllPosts);
