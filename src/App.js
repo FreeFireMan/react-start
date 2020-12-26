@@ -40,7 +40,11 @@ class App extends Component {
                 <div>
                     <form onSubmit={this.onFormSubmit}>
                         <input ref={this.inputMain} type={'number'} onInput={this.onInputFill} value={inputValue}/>
-                        <button onClick={this.userFind}>send</button>
+                        {
+                            inputValue > 0 && inputValue <= 10
+                            ?<button onClick={this.userFind}>send</button>
+                            :<button onClick={this.userFind} disabled>send</button>
+                        }
                     </form>
                 </div>
 
