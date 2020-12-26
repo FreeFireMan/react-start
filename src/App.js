@@ -1,51 +1,50 @@
 import React, {Component} from 'react';
+import userService from "./Service/userService";
 
 class App extends Component {
+
+    inputMain = React.createRef();
+
+    userService = new userService()
 
     state = {
         inputValue: '',
         users: [],
-        isLoading: false,
-        choseOne: null
+        chosenOne: null
     }
 
-    componentDidMount() {
-        this.setState({isLoading: true});
-        fetch('https://jsonplaceholder.typicode.com/users')
-            .then(value => value.json())
-            .then(users => {
-                this.setState({users, isLoading: false})
-            })
+    componentDidMount() { this.userService.getUsers().then(value => this.setState({users: value}))
     }
 
-    oninputFill = ({target: {value}}) => {
-        this.setState({inputValue: value});
+    onFormSubmit = (e) => {
+        e.preventDefault()
+    }
+
+
+    onInputFill = () => {
+        this.setState({inputValue: this.inputMain.current.value})
     }
 
     userFind = () => {
         const {inputValue, users} = this.state;
-		const choseOne = users.find(value => value.id === +inputValue);
-		choseOne
-			? this.setState({choseOne: `${choseOne.id}-${choseOne.name}`})
-			: this.setState({choseOne: 'User not found'})
-
+        const chosenOne = users.find(value => value.id === +inputValue);
+        {
+            chosenOne && this.setState({chosenOne})
+        }
     }
 
     render() {
-
-        let {inputValue, choseOne, isLoading} = this.state;
-
+        let {inputValue, chosenOne} = this.state;
         return (
             <div>
-                {isLoading
-                    ? <h1>LOADING.....</h1>
-                    : <div>
-                        <input type='number' onInput={this.oninputFill} value={inputValue}/>
+                <div>
+                    <form onSubmit={this.onFormSubmit}>
+                        <input ref={this.inputMain} type={'number'} onInput={this.onInputFill} value={inputValue}/>
                         <button onClick={this.userFind}>send</button>
-                      </div>
-                }
+                    </form>
+                </div>
 
-                <h2>{choseOne}</h2>
+                {chosenOne && <h2>{chosenOne.id}-{chosenOne.name}</h2>}
             </div>
         );
     }
