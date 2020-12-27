@@ -5,41 +5,39 @@ class App extends Component {
 
     inputMain = React.createRef();
 
-    userService = new userService()
+    userService = new userService();
 
     state = {
-        inputValue: '',
         users: [],
+        inputValue: '',
         chosenOne: null
     }
 
-    componentDidMount() { this.userService.getUsers().then(value => this.setState({users: value}))
+    componentDidMount() {
+        this.userService.getUsers().then(value => this.setState({users: value}))
     }
 
-    onFormSubmit = (e) => {
+    onFormSubmit = (e) =>{
         e.preventDefault()
     }
 
-
-    onInputFill = () => {
-        this.setState({inputValue: this.inputMain.current.value})
+    inputOnFill = () =>{
+      this.setState({inputValue: this.inputMain.current.value})
     }
 
     userFind = () => {
         const {inputValue, users} = this.state;
-        const chosenOne = users.find(value => value.id === +inputValue);
-        {
-            chosenOne && this.setState({chosenOne})
-        }
+        const chosenOne = users.find(value => value.id === +inputValue)
+        chosenOne && this.setState({chosenOne})
     }
 
     render() {
-        let {inputValue, chosenOne} = this.state;
+        let {chosenOne, inputValue} = this.state
         return (
             <div>
                 <div>
                     <form onSubmit={this.onFormSubmit}>
-                        <input ref={this.inputMain} type={'number'} onInput={this.onInputFill} value={inputValue}/>
+                        <input ref={this.inputMain} type={'number'} onInput={this.inputOnFill} value={inputValue}/>
                         {
                             inputValue > 0 && inputValue <= 10
                             ?<button onClick={this.userFind}>send</button>
@@ -47,7 +45,6 @@ class App extends Component {
                         }
                     </form>
                 </div>
-
                 {chosenOne && <h2>{chosenOne.id}-{chosenOne.name}</h2>}
             </div>
         );

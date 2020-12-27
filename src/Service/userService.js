@@ -4,5 +4,4 @@ export default class userService{
     getUsers(){
         return  fetch(this.url).then(value => value.json())
     }
-
 }
